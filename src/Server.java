@@ -8,10 +8,10 @@ public class Server implements Runnable{
 
     //Klassevariabler
     private int port;
-    ServerSocket server;
-    Socket socket;
-    DataOutputStream output;
-    DataInputStream input;
+    private ServerSocket server;
+    private Socket socket;
+    private DataOutputStream output;
+    private DataInputStream input;
 
     //No arg constructor
     public Server() {
@@ -26,6 +26,7 @@ public class Server implements Runnable{
 
             //Initialiserer serveren på en angivet port
             server = new ServerSocket(port);
+            //System.out.println("Serveren er startet");//Skal smides i textarea
             //Accepterer hvis en klient prøver at tilslutte til serveren
             socket = server.accept();
 

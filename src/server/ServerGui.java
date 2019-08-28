@@ -1,3 +1,5 @@
+package server;
+
 import javafx.event.ActionEvent;
 
 public class ServerGui {

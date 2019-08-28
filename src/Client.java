@@ -18,8 +18,8 @@ public class Client implements Runnable {
         try {
             Socket socket = new Socket("hostIP", portNumber);
 
-            dis = new DataInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
+            dataInputStream = new DataInputStream(socket.getInputStream());
+            dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
 
         } catch (IOException e) {

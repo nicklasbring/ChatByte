@@ -16,6 +16,7 @@ public class Server implements Runnable{
     private Socket socket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
+    private ServerListener listener;
 
     //vector used because it's thread safe
     static Vector<ClientHandler> clients;
@@ -25,7 +26,8 @@ public class Server implements Runnable{
     private static int clientCounter = 0;
 
     //No arg constructor
-    Server() {
+    Server(ServerListener listener) {
+        this.listener = listener;
 
         clients = new Vector<>();
         rooms = new Vector<>();
@@ -40,26 +42,25 @@ public class Server implements Runnable{
 
             //Initialiserer serveren på en angivet port
             server = new ServerSocket(PORT);
-            System.out.println("Server is startet: " + new Date());//Skal smides i textarea
+            listener.updateUI("Server is startet: " + new Date());
 
             while (true) {
-                System.out.println("Waiting for client to connect");
+                listener.updateUI("Waiting for client to connect");
                 //Accepterer hvis en klient prøver at tilslutte til serveren
                 socket = server.accept();
 
-                System.out.println("Client request recieved");
+                listener.updateUI("Client request recieved");
 
                 //Initialiserer datainput- og dataoutputstream for at kunne kommunikere mellem server og klient
                 output = new ObjectOutputStream(socket.getOutputStream());
                 input = new ObjectInputStream(socket.getInputStream());
 
 
-                System.out.println("Creating new ClientHandler");
+                listener.updateUI("Creating new ClientHandler");
                 //Creating a client thread to handle client
-                ClientHandler client = new ClientHandler(socket, input, output);
+                ClientHandler client = new ClientHandler(socket, input, output, listener);
                 Thread thread = new Thread(client);
 
-                System.out.println("Adding client to list and starting ClientHandler");
                 //Adding client to vector
                 clients.add(client);
 
@@ -69,7 +70,8 @@ public class Server implements Runnable{
                 //increments number of clients connected to server
                 clientCounter++;
 
-                System.out.println("Client request completed, number of clients = " + clientCounter);
+
+                listener.updateUI("Client request completed, number of clients = " + clientCounter);
 
 
             }

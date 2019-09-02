@@ -34,17 +34,20 @@ public class ClientHandler implements Runnable {
         while (true){
 
             try {
+
+                System.out.println("Waiting for object from client");
                 request = (Message) ois.readObject();
 
+                System.out.println("request type = " + request.getType().toString());
                 switch (request.getType()){
                     case MESSAGE:
 
+                        System.out.println("Writing to other clients");
                         for(ClientHandler client : Server.clients){
 
-                            if(client != this){
-                                client.getOos().writeObject(request);
-                            }
-                            
+                            client.getOos().writeObject(request);
+                            System.out.println("message delivered to " + client.getSocket().getRemoteSocketAddress().toString());
+
                         }
 
                         break;

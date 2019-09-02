@@ -57,15 +57,20 @@ public class Server implements Runnable{
                 System.out.println("Creating new ClientHandler");
                 //Creating a client thread to handle client
                 ClientHandler client = new ClientHandler(socket, input, output);
+                Thread thread = new Thread(client);
 
                 System.out.println("Adding client to list and starting ClientHandler");
                 //Adding client to vector
                 clients.add(client);
 
+                thread.start();
+
+
                 //increments number of clients connected to server
                 clientCounter++;
 
-                System.out.println("Client request completed");
+                System.out.println("Client request completed, number of clients = " + clientCounter);
+
 
             }
 

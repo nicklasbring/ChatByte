@@ -2,13 +2,13 @@ package request;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Request implements Serializable {
 
     private String sender;
     private String msg;
     private RequestType type;
 
-    public Message(String sender, String msg, RequestType type) {
+    public Request(String sender, String msg, RequestType type) {
         this.sender = sender;
         this.msg = msg;
         this.type = type;

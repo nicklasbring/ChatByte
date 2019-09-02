@@ -1,13 +1,11 @@
 package server;
 
-import request.Message;
-import request.RequestType;
+import request.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Vector;
 
 public class ClientHandler implements Runnable {
 
@@ -30,7 +28,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        Message request;
+        Request request;
 
 
         while (true){
@@ -38,7 +36,7 @@ public class ClientHandler implements Runnable {
             try {
 
                 System.out.println("Waiting for object from client");
-                request = (Message) ois.readObject();
+                request = (Request) ois.readObject();
 
                 System.out.println("request type = " + request.getType().toString());
                 switch (request.getType()){
@@ -47,9 +45,9 @@ public class ClientHandler implements Runnable {
                         System.out.println("Writing to other clients");
                         for(ClientHandler client : Server.clients){
 
-                            listener.updateUI("Message sent from " + socket.getRemoteSocketAddress());
                             client.getOos().writeObject(request);
-                            listener.updateUI("message delivered to " + client.getSocket().getRemoteSocketAddress().toString());
+                            listener.updateUI("Message sent from: " + socket.getRemoteSocketAddress() + "\n" +
+                                    "   \"" + request.getSender() + " : " + request.getMsg() + "\""  );
 
                         }
 
@@ -59,6 +57,12 @@ public class ClientHandler implements Runnable {
                     case ROOM_REQUEST:
                         break;
                     case PRIVATE_REQUEST:
+                        break;
+                    case LEAVE_ROOM:
+                        break;
+                    case CLOSE:
+                        closeCon();
+                        break;
                 }
 
 
@@ -67,13 +71,22 @@ public class ClientHandler implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                listener.updateUI("Something went wrong with a Client-request");
                 e.printStackTrace();
             }
-
-
         }
 
 
+    }
+
+    private void closeCon(){
+        try {
+            ois.close();
+            oos.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
      public ObjectInputStream getOis() {

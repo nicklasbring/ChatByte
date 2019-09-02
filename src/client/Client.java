@@ -1,6 +1,6 @@
 package client;
 
-import request.Message;
+import request.Request;
 import request.RequestType;
 import java.io.*;
 import java.net.Socket;
@@ -32,11 +32,11 @@ public class Client implements Runnable {
             oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
 
-            //Endless loop that updates the textArea in the gui with message from the server
-            Message message;
+            //Endless loop that updates the textArea in the gui with request from the server
+            Request request;
             while (true){
-                message = (Message) ois.readObject();
-                listener.updateUi(message.getSender() + ":" + message.getMsg());
+                request = (Request) ois.readObject();
+                listener.updateUi(request.getSender() + ":" + request.getMsg());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,8 +48,8 @@ public class Client implements Runnable {
 
     public void messageToServer(String message){
         try {
-            //Writes a new Message object to the server
-            oos.writeObject(new Message("Nicklas", message, RequestType.MESSAGE));
+            //Writes a new Request object to the server
+            oos.writeObject(new Request("Nicklas", message, RequestType.MESSAGE));
             oos.flush();
         } catch (IOException e) {
             e.printStackTrace();

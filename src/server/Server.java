@@ -1,5 +1,7 @@
 package server;
 
+import javafx.application.Platform;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,7 +25,7 @@ public class Server implements Runnable{
     static Vector<ChatRoom> rooms;
 
     //counts number of clients
-    private static int clientCounter = 0;
+    static int clientCounter = 0;
 
     //No arg constructor
     Server(ServerListener listener) {
@@ -42,7 +44,11 @@ public class Server implements Runnable{
 
             //Initialiserer serveren på en angivet port
             server = new ServerSocket(PORT);
-            listener.updateUI("Server is startet: " + new Date());
+
+            listener.updateUI("Server running");
+//            listener.updateServerStatus();
+
+
 
             while (true) {
                 listener.updateUI("Waiting for client to connect");
@@ -56,7 +62,7 @@ public class Server implements Runnable{
                 input = new ObjectInputStream(socket.getInputStream());
 
 
-                listener.updateUI("Creating new ClientHandler");
+
                 //Creating a client thread to handle client
                 ClientHandler client = new ClientHandler(socket, input, output, listener);
                 Thread thread = new Thread(client);
@@ -66,18 +72,17 @@ public class Server implements Runnable{
 
                 thread.start();
 
+                listener.updateUI("Client successfully handled");
+
 
                 //increments number of clients connected to server
                 clientCounter++;
-
-
-                listener.updateUI("Client request completed, number of clients = " + clientCounter);
-
+                //listener.updateClientCount(clientCounter);
 
             }
 
         } catch (IOException e) {
-            System.out.println("Error connecting client to server");
+            listener.updateUI("Error connecting client to server");
             e.printStackTrace();
         }
     }

@@ -21,5 +21,6 @@ public class ClientGui {
 
     public void writeMessage(ActionEvent actionEvent) {
         client.messageToServer(tf_message.getText());
+        tf_message.clear();
     }
 }

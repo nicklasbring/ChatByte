@@ -1,5 +1,8 @@
 package client;
 
+import request.Message;
+import request.RequestType;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -24,14 +27,26 @@ public class Client implements Runnable {
             oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
 
+            Message message;
+            while (true){
+                message = (Message) ois.readObject();
+                System.out.println(message.getSender() + ":" + message.getMsg());
+            }
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public void messageToServer(String message){
-        oos.writeObject();
+        try {
+            oos.writeObject(new Message("Nicklas", message, RequestType.MESSAGE));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

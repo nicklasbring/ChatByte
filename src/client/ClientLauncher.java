@@ -12,8 +12,8 @@ public class ClientLauncher extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("client/client_gui.fxml"));
-        primaryStage.setTitle("title");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setTitle("Chatbyte");
+        primaryStage.setScene(new Scene(root, 700, 560));
         primaryStage.show();
 
 

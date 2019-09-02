@@ -57,6 +57,8 @@ public class ClientHandler implements Runnable {
                         break;
                     case LEAVE_ROOM:
                         break;
+                    case FILE_TRANSFER_REQUEST:
+                        break;
                     case CLOSE:
                         throw new SocketException();
                 }

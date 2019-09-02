@@ -4,15 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="700.0" style="-fx-background-color: grey; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientGui">
    <children>
       <TextArea fx:id="ta_client_text" editable="false" layoutY="118.0" prefHeight="441.0" prefWidth="430.0" style="-fx-background-color: black;" />
-      <TextField fx:id="tf_message" layoutX="30.0" layoutY="512.0" onAction="#writeMessage" prefHeight="25.0" prefWidth="364.0" style="-fx-background-color: lightgrey;" />
+      <TextField fx:id="tf_message" layoutX="30.0" layoutY="512.0" onAction="#writeMessage" prefHeight="25.0" prefWidth="337.0" style="-fx-background-color: lightgrey;" />
       <Label fx:id="lb_room" layoutY="84.0" prefHeight="34.0" prefWidth="700.0" style="-fx-background-color: darkgrey; -fx-border-color: black;" text="  Room: " textFill="#6f746f">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -24,29 +22,15 @@
       </Label>
       <TextArea fx:id="ta_active_rooms" editable="false" layoutX="549.0" layoutY="118.0" prefHeight="221.0" prefWidth="150.0" style="-fx-background-color: black;" />
       <TextArea fx:id="ta_friends" editable="false" layoutX="549.0" layoutY="340.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn_private" layoutX="456.0" layoutY="424.0" mnemonicParsing="false" onAction="#startPrivateChat" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: silver;" text="Private" />
-      <Button fx:id="btn_add_room" alignment="BASELINE_LEFT" layoutX="451.0" layoutY="468.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add room" />
-      <Button fx:id="btn_add_friend" layoutX="456.0" layoutY="512.0" mnemonicParsing="false" onAction="#addFriend" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: silver;" text="Add friend" />
+      <Button fx:id="btn_private" layoutX="446.0" layoutY="128.0" mnemonicParsing="false" onAction="#startPrivateChat" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Private" />
+      <Button fx:id="btn_add_room" alignment="CENTER" layoutX="446.0" layoutY="162.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add room" textAlignment="CENTER" />
+      <Button fx:id="btn_add_friend" layoutX="446.0" layoutY="197.0" mnemonicParsing="false" onAction="#addFriend" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add friend" />
       <Label layoutX="589.0" layoutY="127.0" text="Active rooms" underline="true" />
       <Label layoutX="605.0" layoutY="348.0" text="Friends" textFill="#010101" underline="true" />
-      <Button layoutX="366.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" />
-      <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="371.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Desktop/icons8-email-send-32.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="18.0" fitWidth="80.0" layoutX="512.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Desktop/icons8-lock-48.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="516.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Desktop/icons8-room-64.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btn_connectToServer" layoutX="463.0" layoutY="132.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
-      <Label fx:id="lb_username" layoutX="430.0" layoutY="93.0" text="Anonomous" />
+      <Button layoutX="366.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" text="▶" />
+      <Button fx:id="btn_connectToServer" layoutX="446.0" layoutY="522.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="25.0" prefWidth="87.0" text="Connect" />
+      <Label fx:id="lb_username" layoutX="430.0" layoutY="93.0" text="Anonymous" />
       <Label fx:id="lb_changeName" layoutX="610.0" layoutY="93.0" onMouseClicked="#changeName" text="Change name" textFill="#0080ff" />
+      <Button layoutX="446.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Send File" />
    </children>
 </AnchorPane>

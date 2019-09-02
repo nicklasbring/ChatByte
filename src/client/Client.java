@@ -17,6 +17,7 @@ public class Client implements Runnable {
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private ClientListener listener;
+    private Socket socket = null;
 
     //Constructor
     public Client(ClientListener listener) {
@@ -26,29 +27,36 @@ public class Client implements Runnable {
     //Run method that runs on a thread
     @Override
     public void run() {
-        try {
-            //Trying to connect to server
-            Socket socket = new Socket(hostIP, PORT);
+        if(socket == null){
+            try {
+                //Trying to connect to server
+                socket = new Socket(hostIP, PORT);
 
-            //Initializing input and outputstreams to communicate with server
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
+                listener.updateUi("You are connected to the server");
 
-            //Endless loop that updates the textArea in the gui with request from the server
-            Request request;
-            while (true){
-                request = (Request) ois.readObject();
-                listener.updateUi(request.getSender() + ":" + request.getMsg());
+                //Initializing input and outputstreams to communicate with server
+                oos = new ObjectOutputStream(socket.getOutputStream());
+                ois = new ObjectInputStream(socket.getInputStream());
+
+                //Endless loop that updates the textArea in the gui with request from the server
+                Request request;
+                while (true){
+                    request = (Request) ois.readObject();
+                    listener.updateUi(request.getSender() + ": " + request.getMsg());
+                }
+            } catch (ConnectException e){
+                listener.updateUi("Failed to connect to server\n" +
+                        "   Server message: " + e.getLocalizedMessage());
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (ConnectException e){
-            listener.updateUi("Failed to connect to server\n" +
-                    "   Server message: " + e.getLocalizedMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } else {
+            listener.updateUi("You are already connected to the server");
         }
+
     }
 
 

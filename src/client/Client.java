@@ -43,7 +43,6 @@ public class Client implements Runnable {
     public void messageToServer(String message){
         try {
             oos.writeObject(new Message("Nicklas", message, RequestType.MESSAGE));
-
         } catch (IOException e) {
             e.printStackTrace();
         }

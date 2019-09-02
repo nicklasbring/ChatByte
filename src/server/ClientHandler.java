@@ -15,12 +15,14 @@ public class ClientHandler implements Runnable {
     private final ObjectInputStream ois;
     private final ObjectOutputStream oos;
     private final Socket socket;
+    private ServerListener listener;
 
     //Constructor
-    ClientHandler(Socket socket, ObjectInputStream ois, ObjectOutputStream oos) {
+    ClientHandler(Socket socket, ObjectInputStream ois, ObjectOutputStream oos, ServerListener listener) {
         this.socket = socket;
         this.ois = ois;
         this.oos = oos;
+        this.listener = listener;
 
     }
 
@@ -45,8 +47,9 @@ public class ClientHandler implements Runnable {
                         System.out.println("Writing to other clients");
                         for(ClientHandler client : Server.clients){
 
+                            listener.updateUI("Message sent from " + socket.getRemoteSocketAddress());
                             client.getOos().writeObject(request);
-                            System.out.println("message delivered to " + client.getSocket().getRemoteSocketAddress().toString());
+                            listener.updateUI("message delivered to " + client.getSocket().getRemoteSocketAddress().toString());
 
                         }
 

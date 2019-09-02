@@ -18,7 +18,8 @@ public class Server implements Runnable{
     private ObjectInputStream input;
 
     //vector used because it's thread safe
-    private static Vector<ClientHandler> clients;
+    static Vector<ClientHandler> clients;
+    static Vector<ChatRoom> rooms;
     //counts number of clients
     private static int clientCounter = 0;
 
@@ -26,6 +27,7 @@ public class Server implements Runnable{
     Server() {
 
         clients = new Vector<>();
+        rooms = new Vector<>();
 
     }
 

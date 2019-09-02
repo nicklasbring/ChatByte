@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="700.0" style="-fx-background-color: grey; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientGui">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="700.0" style="-fx-background-color: grey; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientGui">
    <children>
       <TextArea fx:id="ta_client_text" editable="false" layoutY="118.0" prefHeight="441.0" prefWidth="430.0" style="-fx-background-color: black;" />
       <TextField fx:id="tf_message" layoutX="30.0" layoutY="512.0" onAction="#writeMessage" prefHeight="25.0" prefWidth="364.0" style="-fx-background-color: lightgrey;" />
@@ -45,5 +45,8 @@
             <Image url="@../../../../Desktop/icons8-room-64.png" />
          </image>
       </ImageView>
+      <Button fx:id="btn_connectToServer" layoutX="463.0" layoutY="132.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
+      <Label fx:id="lb_username" layoutX="430.0" layoutY="93.0" text="Anonomous" />
+      <Label fx:id="lb_changeName" layoutX="610.0" layoutY="93.0" onMouseClicked="#changeName" text="Change name" textFill="#0080ff" />
    </children>
 </AnchorPane>

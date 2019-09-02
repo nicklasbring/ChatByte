@@ -31,7 +31,6 @@ public class ClientHandler implements Runnable {
 
         Request request;
 
-
         while (true){
 
             try {
@@ -45,7 +44,7 @@ public class ClientHandler implements Runnable {
 
                             client.getOos().writeObject(request);
                             listener.updateUI("Message sent from: " + socket.getRemoteSocketAddress() + "\n" +
-                                    "   \"" + request.getSender() + " : " + request.getMsg() + "\""  );
+                                    "   \"" + request.getSender() + ": " + request.getMsg() + "\""  );
 
                         }
                         break;
@@ -66,9 +65,10 @@ public class ClientHandler implements Runnable {
             } catch (SocketException e) {
                 break;
             }catch (IOException e) {
+                listener.updateUI("Failed to complete client request");
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
-                listener.updateUI("Something went wrong with a Client-request");
+                listener.updateUI("Class cast error (Bad request)");
                 e.printStackTrace();
             }
         }

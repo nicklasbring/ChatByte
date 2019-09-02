@@ -3,6 +3,8 @@ package client;
 import request.Request;
 import request.RequestType;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.net.ConnectException;
 import java.net.Socket;
 
 public class Client implements Runnable {
@@ -11,7 +13,7 @@ public class Client implements Runnable {
     private static final int PORT = 16500;
 
     //Class variables
-    private String hostIP = "192.168.0.108";
+    private String hostIP = "localhost";
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private ClientListener listener;
@@ -38,6 +40,10 @@ public class Client implements Runnable {
                 request = (Request) ois.readObject();
                 listener.updateUi(request.getSender() + ":" + request.getMsg());
             }
+        } catch (ConnectException e){
+            listener.updateUi("Failed to connect to server\n" +
+                    "   Server message: " + e.getLocalizedMessage());
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -46,11 +52,14 @@ public class Client implements Runnable {
     }
 
 
-    public void messageToServer(String message){
+    void requestToServer(String name, String message, RequestType type){
         try {
             //Writes a new Request object to the server
-            oos.writeObject(new Request("Nicklas", message, RequestType.MESSAGE));
+            oos.writeObject(new Request(name, message, type));
             oos.flush();
+        } catch (NullPointerException e){
+            listener.updateUi("Failed to sent message, try connecting to server");
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,6 +17,10 @@ public class ServerGui implements ServerListener {
     @FXML public Label lb_server_start_timestamp;
     @FXML public Button btn_start_server;
 
+    public void initialize(){
+        ta_server_text.wrapTextProperty().setValue(true);
+    }
+
     //Start Server button onAction
     //Runs when start server button is pressed on server gui
     public void startServer(ActionEvent actionEvent) {

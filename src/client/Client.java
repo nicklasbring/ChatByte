@@ -1,32 +1,32 @@
 package client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Client implements Runnable {
 
-    private int portNumber;
-    private String hostIP;
-    private Socket socket;
-    private DataOutputStream dataOutputStream;
-    private DataInputStream dataInputStream;
+    //Constants
+    private static final int PORT = 16500;
+
+    //Class variables
+    private String hostIP = "localhost";
+    private ObjectOutputStream oos;
+    private ObjectInputStream ois;
 
 
     @Override
     public void run() {
 
         try {
-            Socket socket = new Socket("hostIP", portNumber);
+            //Trying to connect to server
+            Socket socket = new Socket("hostIP", PORT);
 
-            dataInputStream = new DataInputStream(socket.getInputStream());
-            dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
+            //Initializing input and outputstreams to communicate with server
+            ois = new ObjectInputStream(socket.getInputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -1,5 +1,8 @@
 package client;
 
+import request.Message;
+import request.RequestType;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -31,7 +34,11 @@ public class Client implements Runnable {
     }
 
     public void messageToServer(String message){
-        oos.writeObject();
+        try {
+            oos.writeObject(new Message("Nicklas", message, RequestType.MESSAGE));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

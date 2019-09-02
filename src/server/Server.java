@@ -20,6 +20,7 @@ public class Server implements Runnable{
     //vector used because it's thread safe
     static Vector<ClientHandler> clients;
     static Vector<ChatRoom> rooms;
+
     //counts number of clients
     private static int clientCounter = 0;
 

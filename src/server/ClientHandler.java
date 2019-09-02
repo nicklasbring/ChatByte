@@ -38,6 +38,15 @@ public class ClientHandler implements Runnable {
 
                 switch (request.getType()){
                     case MESSAGE:
+
+                        for(ClientHandler client : Server.clients){
+
+                            if(client != this){
+                                client.getOos().writeObject(request);
+                            }
+                            
+                        }
+
                         break;
                     case NEW_ROOM_REQUEST:
                         break;

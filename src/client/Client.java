@@ -21,8 +21,9 @@ public class Client implements Runnable {
             Socket socket = new Socket(hostIP, PORT);
 
             //Initializing input and outputstreams to communicate with server
-            ois = new ObjectInputStream(socket.getInputStream());
             oos = new ObjectOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
+
 
         } catch (IOException e) {
             e.printStackTrace();

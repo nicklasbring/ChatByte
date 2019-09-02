@@ -47,8 +47,9 @@ public class Server implements Runnable{
                 System.out.println("Client request recieved");
 
                 //Initialiserer datainput- og dataoutputstream for at kunne kommunikere mellem server og klient
-                input = new ObjectInputStream(socket.getInputStream());
                 output = new ObjectOutputStream(socket.getOutputStream());
+                input = new ObjectInputStream(socket.getInputStream());
+
 
                 System.out.println("Creating new ClientHandler");
                 //Creating a client thread to handle client

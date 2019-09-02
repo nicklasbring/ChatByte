@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientHandler implements Runnable {
 
@@ -24,7 +25,7 @@ public class ClientHandler implements Runnable {
 
     }
 
-    //Run method that handles client actions
+    //Run method that handles client requests
     @Override
     public void run() {
 
@@ -35,14 +36,11 @@ public class ClientHandler implements Runnable {
 
             try {
 
-                System.out.println("Waiting for object from client");
                 request = (Request) ois.readObject();
 
-                System.out.println("request type = " + request.getType().toString());
                 switch (request.getType()){
                     case MESSAGE:
 
-                        System.out.println("Writing to other clients");
                         for(ClientHandler client : Server.clients){
 
                             client.getOos().writeObject(request);
@@ -50,8 +48,8 @@ public class ClientHandler implements Runnable {
                                     "   \"" + request.getSender() + " : " + request.getMsg() + "\""  );
 
                         }
-
                         break;
+
                     case NEW_ROOM_REQUEST:
                         break;
                     case ROOM_REQUEST:
@@ -61,14 +59,13 @@ public class ClientHandler implements Runnable {
                     case LEAVE_ROOM:
                         break;
                     case CLOSE:
-                        closeCon();
-                        break;
+                        throw new SocketException();
                 }
 
 
-
-
-            } catch (IOException e) {
+            } catch (SocketException e) {
+                break;
+            }catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 listener.updateUI("Something went wrong with a Client-request");
@@ -76,14 +73,24 @@ public class ClientHandler implements Runnable {
             }
         }
 
+        closeCon();
 
     }
 
     private void closeCon(){
         try {
+
+            Server.clientCounter--;
+            listener.updateClientCount(Server.clientCounter);
+
+            Server.clients.remove(this);
+
+            listener.updateUI(socket.getRemoteSocketAddress() + " disconnected from the server");
+
             ois.close();
             oos.close();
             socket.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

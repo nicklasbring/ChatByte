@@ -1,5 +1,6 @@
 package server;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,17 +34,37 @@ public class ServerGui implements ServerListener {
 
     @Override
     public void updateUI(String s) {
-        ta_server_text.appendText(s + "\n");
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ta_server_text.appendText(s + "\n");
+            }
+        });
     }
 
     @Override
     public void updateClientCount(int clientCount) {
-        lb_client_count.setText(String.valueOf(clientCount));
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lb_client_count.setText(String.valueOf(clientCount));
+            }
+        });
     }
 
     @Override
     public void updateServerStatus() {
         String status = new Date().toString();
-        lb_server_start_timestamp.setText(status);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lb_server_start_timestamp.setText(status);
+            }
+        });
     }
+
+
 }

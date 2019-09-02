@@ -46,7 +46,7 @@ public class Server implements Runnable{
             server = new ServerSocket(PORT);
 
             listener.updateUI("Server running");
-//            listener.updateServerStatus();
+            listener.updateServerStatus();
 
 
 
@@ -77,7 +77,7 @@ public class Server implements Runnable{
 
                 //increments number of clients connected to server
                 clientCounter++;
-                //listener.updateClientCount(clientCounter);
+                listener.updateClientCount(clientCounter);
 
             }
 

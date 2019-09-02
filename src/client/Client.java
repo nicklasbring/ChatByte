@@ -2,7 +2,6 @@ package client;
 
 import request.Message;
 import request.RequestType;
-
 import java.io.*;
 import java.net.Socket;
 
@@ -15,10 +14,16 @@ public class Client implements Runnable {
     private String hostIP = "192.168.0.108";
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
+    private ClientListener listener;
 
+    //Constructor
+    public Client(ClientListener listener) {
+        this.listener = listener;
+    }
+
+    //Run method that runs on a thread
     @Override
     public void run() {
-
         try {
             //Trying to connect to server
             Socket socket = new Socket(hostIP, PORT);
@@ -27,12 +32,12 @@ public class Client implements Runnable {
             oos = new ObjectOutputStream(socket.getOutputStream());
             ois = new ObjectInputStream(socket.getInputStream());
 
+            //Endless loop that updates the textArea in the gui with message from the server
             Message message;
             while (true){
                 message = (Message) ois.readObject();
-                System.out.println(message.getSender() + ":" + message.getMsg());
+                listener.updateUi(message.getSender() + ":" + message.getMsg());
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -40,8 +45,10 @@ public class Client implements Runnable {
         }
     }
 
+
     public void messageToServer(String message){
         try {
+            //Writes a new Message object to the server
             oos.writeObject(new Message("Nicklas", message, RequestType.MESSAGE));
             oos.flush();
         } catch (IOException e) {

@@ -20,7 +20,6 @@ public class ClientGui {
     }
 
     public void writeMessage(ActionEvent actionEvent) {
-        client.messageToServer(tf_message.getText().toString());
-
+        client.messageToServer(tf_message.getText());
     }
 }

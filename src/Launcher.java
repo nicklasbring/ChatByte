@@ -8,7 +8,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent serverGui = FXMLLoader.load(getClass().getResource("Server.fxml"));
+        Parent serverGui = FXMLLoader.load(getClass().getResource("server/server_gui.fxml"));
         primaryStage.setTitle("ServerGui");
         primaryStage.setScene(new Scene(serverGui, 600, 400));
         primaryStage.show();

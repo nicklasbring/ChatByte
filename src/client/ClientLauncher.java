@@ -16,15 +16,9 @@ public class ClientLauncher extends Application {
         primaryStage.setScene(new Scene(root, 700, 560));
         primaryStage.show();
 
-
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);
     }
-
-
 }

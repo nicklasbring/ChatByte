@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -23,9 +25,25 @@
       <TextArea fx:id="ta_active_rooms" editable="false" layoutX="549.0" layoutY="118.0" prefHeight="221.0" prefWidth="150.0" style="-fx-background-color: black;" />
       <TextArea fx:id="ta_friends" editable="false" layoutX="549.0" layoutY="340.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: black;" />
       <Button fx:id="btn_private" layoutX="456.0" layoutY="424.0" mnemonicParsing="false" onAction="#startPrivateChat" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: silver;" text="Private" />
-      <Button fx:id="btn_add_room" layoutX="456.0" layoutY="468.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: silver;" text="Add room" />
+      <Button fx:id="btn_add_room" alignment="BASELINE_LEFT" layoutX="451.0" layoutY="468.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add room" />
       <Button fx:id="btn_add_friend" layoutX="456.0" layoutY="512.0" mnemonicParsing="false" onAction="#addFriend" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: silver;" text="Add friend" />
       <Label layoutX="589.0" layoutY="127.0" text="Active rooms" underline="true" />
       <Label layoutX="605.0" layoutY="348.0" text="Friends" textFill="#010101" underline="true" />
+      <Button layoutX="366.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" />
+      <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="371.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/icons8-email-send-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="80.0" layoutX="512.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/icons8-lock-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="30.0" layoutX="516.0" layoutY="471.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/icons8-room-64.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

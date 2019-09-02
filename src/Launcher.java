@@ -10,12 +10,13 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent serverGui = FXMLLoader.load(getClass().getResource("server/server_gui.fxml"));
         primaryStage.setTitle("ServerGui");
-        primaryStage.setScene(new Scene(serverGui, 600, 400));
+        primaryStage.setScene(new Scene(serverGui, 500, 600));
         primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
 }

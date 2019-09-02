@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerGui">
    <children>
-      <TextArea fx:id="ta_server_text" layoutX="13.0" layoutY="14.0" prefHeight="481.0" prefWidth="474.0" promptText="Start by clicking the &quot;Start Server&quot; button in the down right corner." />
+      <TextArea fx:id="ta_server_text" editable="false" layoutX="13.0" layoutY="14.0" prefHeight="481.0" prefWidth="474.0" promptText="Start by clicking the &quot;Start Server&quot; button in the down right corner." />
       <Button fx:id="btn_start_server" layoutX="408.0" layoutY="561.0" mnemonicParsing="false" onAction="#startServer" text="Start Server" />
       <Label layoutX="13.0" layoutY="503.0" text="Clients connected:">
          <font>

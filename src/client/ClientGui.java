@@ -3,6 +3,7 @@ package client;
 import javafx.event.ActionEvent;
 
 public class ClientGui {
+
     public void startPrivateChat(ActionEvent actionEvent) {
     }
 

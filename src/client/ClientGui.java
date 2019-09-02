@@ -1,12 +1,14 @@
 package client;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 
 public class ClientGui {
 
-    public void startPrivateChat(ActionEvent actionEvent) {
-        Client client = new Client();
+    public TextField tf_message;
+    Client client = new Client();
 
+    public void startPrivateChat(ActionEvent actionEvent) {
         Thread thread = new Thread(client);
         thread.start();
     }
@@ -18,5 +20,7 @@ public class ClientGui {
     }
 
     public void writeMessage(ActionEvent actionEvent) {
+        client.messageToServer(tf_message.getText().toString());
+
     }
 }

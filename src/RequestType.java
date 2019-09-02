@@ -1,0 +1,3 @@
+public enum RequestType {
+    MESSAGE, NEWROOMREQUEST, ROOMREQUEST, PRIVATERQUEST
+}

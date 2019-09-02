@@ -1,56 +1,72 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
+import java.util.Vector;
 
 public class Server implements Runnable{
 
-    //Constant
+    //Constant port number
     private static final int PORT = 16500;
 
-    //Klassevariabler
+    //Instance variables
     private ServerSocket server;
     private Socket socket;
-    private DataOutputStream output;
-    private DataInputStream input;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+
+    //vector used because it's thread safe
+    private static Vector<ClientHandler> clients;
+    //counts number of clients
+    private static int clientCounter = 0;
 
     //No arg constructor
-    public Server() {
+    Server() {
+
+        clients = new Vector<>();
 
     }
 
-    //Run metode som bliver overskrevet fra Runnable klassen
-    //Den bliver brugt til at køre serveren i på en tråd
+    //Overriding run() method from Runnable interface
+    //Handling client request on a thread
     @Override
     public void run() {
         try {
 
             //Initialiserer serveren på en angivet port
             server = new ServerSocket(PORT);
-            System.out.println("Serveren er startet");//Skal smides i textarea
+            System.out.println("Server is startet: " + new Date());//Skal smides i textarea
 
             while (true) {
+                System.out.println("Waiting for client to connect");
                 //Accepterer hvis en klient prøver at tilslutte til serveren
                 socket = server.accept();
 
+                System.out.println("Client request recieved");
+
                 //Initialiserer datainput- og dataoutputstream for at kunne kommunikere mellem server og klient
-                input = new DataInputStream(socket.getInputStream());
-                output = new DataOutputStream(socket.getOutputStream());
+                input = new ObjectInputStream(socket.getInputStream());
+                output = new ObjectOutputStream(socket.getOutputStream());
 
+                System.out.println("Creating new ClientHandler");
+                //Creating a client thread to handle client
+                ClientHandler client = new ClientHandler(socket, input, output);
 
-                //TODO: create client handler that handles clients on a thread
+                System.out.println("Adding client to list and starting ClientHandler");
+                //Adding client to vector
+                clients.add(client);
 
-                //TODO: create a Vector or HashMap that keeps track of all connected clients (thread-safe!!!!)
+                //increments number of clients connected to server
+                clientCounter++;
 
-
-
+                System.out.println("Client request completed");
 
             }
 
         } catch (IOException e) {
+            System.out.println("Error connecting client to server");
             e.printStackTrace();
         }
     }

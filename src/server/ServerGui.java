@@ -9,7 +9,11 @@ public class ServerGui {
     //Runs when start server button is pressed on server gui
     public void startServer(ActionEvent actionEvent) {
 
+        Server server = new Server();
 
+        Thread thread = new Thread(server);
+
+        thread.start();
 
     }
 

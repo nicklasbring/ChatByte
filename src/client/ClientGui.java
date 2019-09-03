@@ -26,6 +26,7 @@ public class ClientGui implements ClientListener {
 
     public void initialize(){
         ta_client_text.wrapTextProperty().setValue(true);
+
     }
 
     public void startPrivateChat(ActionEvent actionEvent) {

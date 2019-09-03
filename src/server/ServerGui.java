@@ -1,5 +1,6 @@
 package server;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +16,10 @@ public class ServerGui implements ServerListener {
     @FXML public Label lb_client_count;
     @FXML public Label lb_server_start_timestamp;
     @FXML public Button btn_start_server;
+
+    public void initialize(){
+        ta_server_text.wrapTextProperty().setValue(true);
+    }
 
     //Start Server button onAction
     //Runs when start server button is pressed on server gui
@@ -33,17 +38,37 @@ public class ServerGui implements ServerListener {
 
     @Override
     public void updateUI(String s) {
-        ta_server_text.appendText(s + "\n");
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                ta_server_text.appendText(s + "\n");
+            }
+        });
     }
 
     @Override
     public void updateClientCount(int clientCount) {
-        lb_client_count.setText(String.valueOf(clientCount));
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lb_client_count.setText(String.valueOf(clientCount));
+            }
+        });
     }
 
     @Override
     public void updateServerStatus() {
         String status = new Date().toString();
-        lb_server_start_timestamp.setText(status);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lb_server_start_timestamp.setText(status);
+            }
+        });
     }
+
+
 }

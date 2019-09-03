@@ -74,4 +74,8 @@ public class ClientGui implements ClientListener {
         }
 
     }
+
+    public void sendMessage(ActionEvent actionEvent) {
+        writeMessage(actionEvent);
+    }
 }

@@ -2,12 +2,17 @@ package client;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import request.RequestType;
+
+import java.io.File;
 
 public class ClientGui implements ClientListener {
 
@@ -16,6 +21,8 @@ public class ClientGui implements ClientListener {
     public Label lb_username;
 
     private Client client = new Client(this);
+
+    private File file;
 
     public void initialize(){
         ta_client_text.wrapTextProperty().setValue(true);
@@ -74,4 +81,19 @@ public class ClientGui implements ClientListener {
         }
 
     }
+
+    public void sendFile(ActionEvent actionEvent) {
+
+        Node source = (Node) actionEvent.getSource();
+        Window stage = source.getScene().getWindow();
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("Choose file");
+        file = fileChooser.showOpenDialog(stage);
+
+        System.out.println("File location: " + file.getPath());
+    }
+
+
 }

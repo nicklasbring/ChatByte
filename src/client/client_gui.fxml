@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -7,30 +8,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="700.0" style="-fx-background-color: grey; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientGui">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="700.0" style="-fx-background-color: #3c3f41; -fx-border-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientGui">
    <children>
-      <TextArea fx:id="ta_client_text" editable="false" layoutY="118.0" prefHeight="441.0" prefWidth="430.0" style="-fx-background-color: black;" />
-      <TextField fx:id="tf_message" layoutX="30.0" layoutY="512.0" onAction="#writeMessage" prefHeight="25.0" prefWidth="337.0" style="-fx-background-color: lightgrey;" />
-      <Label fx:id="lb_room" layoutY="84.0" prefHeight="34.0" prefWidth="700.0" style="-fx-background-color: darkgrey; -fx-border-color: black;" text="  Room: " textFill="#6f746f">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Label>
-      <Label prefHeight="86.0" prefWidth="700.0" style="-fx-background-color: grey; -fx-border-color: black;" text="  CHATBYTE" textAlignment="CENTER" textFill="#d4ead5">
+      <TextArea fx:id="ta_client_text" editable="false" layoutY="118.0" prefHeight="441.0" prefWidth="430.0" style="-fx-control-inner-background: #2b2b2b; -fx-text-fill: #aeb0b2; -fx-background-color: grey;" />
+      <TextField fx:id="tf_message" layoutX="29.0" layoutY="510.0" onAction="#writeMessage" prefHeight="26.0" prefWidth="335.0" style="-fx-background-color: #3c3f41; -fx-text-fill: #aeb0b2;" />
+      <Label prefHeight="86.0" prefWidth="700.0" style="-fx-background-color: #3c3f41; -fx-border-color: black;" text="  CHATBYTE" textAlignment="CENTER" textFill="#ad592d">
          <font>
             <Font name="Imprint MT Shadow" size="60.0" />
          </font>
       </Label>
       <TextArea fx:id="ta_active_rooms" editable="false" layoutX="549.0" layoutY="118.0" prefHeight="221.0" prefWidth="150.0" style="-fx-background-color: black;" />
       <TextArea fx:id="ta_friends" editable="false" layoutX="549.0" layoutY="340.0" prefHeight="220.0" prefWidth="150.0" style="-fx-background-color: black;" />
-      <Button fx:id="btn_private" layoutX="446.0" layoutY="128.0" mnemonicParsing="false" onAction="#startPrivateChat" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Private" />
-      <Button fx:id="btn_add_room" alignment="CENTER" layoutX="446.0" layoutY="162.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add room" textAlignment="CENTER" />
-      <Button fx:id="btn_add_friend" layoutX="446.0" layoutY="197.0" mnemonicParsing="false" onAction="#addFriend" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: silver;" text="Add friend" />
       <Label layoutX="589.0" layoutY="127.0" text="Active rooms" underline="true" />
       <Label layoutX="605.0" layoutY="348.0" text="Friends" textFill="#010101" underline="true" />
-      <Button layoutX="366.0" layoutY="511.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" text="▶" />
-      <Button fx:id="btn_connectToServer" layoutX="446.0" layoutY="522.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="25.0" prefWidth="87.0" text="Connect" />
-      <Label fx:id="lb_username" layoutX="430.0" layoutY="93.0" text="Anonymous" />
+      <Button layoutX="364.0" layoutY="510.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="27.0" text="▶" />
+      <Button fx:id="btn_connectToServer" layoutX="446.0" layoutY="522.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3e859f;" text="Connect" />
+      <Label fx:id="lb_username" layoutX="14.0" layoutY="93.0" text="ANONYMOUS" textFill="#ad592d">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
       <Label fx:id="lb_changeName" layoutX="610.0" layoutY="93.0" onMouseClicked="#changeName" text="Change name" textFill="#0080ff" />
-      <Button layoutX="446.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Send File" />
+      <Button layoutX="446.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #3e859f;" text="Send File" />
+      <JFXButton fx:id="btn_private" layoutX="446.0" layoutY="131.0" onAction="#startPrivateChat" prefHeight="26.0" prefWidth="87.0" ripplerFill="#3253b5" style="-fx-background-color: #3e859f;" text="Private" />
+      <JFXButton fx:id="btn_add_room" layoutX="446.0" layoutY="164.0" onAction="#addRoom" prefHeight="26.0" prefWidth="87.0" ripplerFill="#3254b2" style="-fx-background-color: #3e859f;" text="Add room" />
+      <JFXButton fx:id="btn_add_friend" layoutX="447.0" layoutY="197.0" onAction="#addFriend" prefHeight="26.0" prefWidth="87.0" ripplerFill="#3254b2" style="-fx-background-color: #3e859f;" text="Add friend" />
    </children>
 </AnchorPane>

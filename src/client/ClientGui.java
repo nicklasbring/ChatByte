@@ -23,6 +23,8 @@ public class ClientGui implements ClientListener {
 
     public void startPrivateChat(ActionEvent actionEvent) {
 
+        System.out.println("virker");
+
     }
 
     public void addRoom(ActionEvent actionEvent) {

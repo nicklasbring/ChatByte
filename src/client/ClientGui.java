@@ -82,6 +82,11 @@ public class ClientGui implements ClientListener {
 
     }
 
+
+    public void sendMessage(ActionEvent actionEvent) {
+        writeMessage(actionEvent);
+    }
+
     public void sendFile(ActionEvent actionEvent) {
 
         Node source = (Node) actionEvent.getSource();

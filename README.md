@@ -1,8 +1,8 @@
 # ChatByte
 
-##### Author: Cosby1992, nicklasbring,  <br>
-##### Language: Java (Using JavaFX and JFoenix for GUI) <br> <br>
-Credit for Jfoenix: https://github.com/jfoenixadmin/JFoenix <br>
+##### Author: Cosby1992, nicklasbring, MathiasAmi             <br>
+##### Language: Java (Using JavaFX and JFoenix for GUI)       <br> <br>
+Credit for Jfoenix: https://github.com/jfoenixadmin/JFoenix   <br>
 
 ### Description
 ---------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 package client;
 
+import globalsettings.GlobalSettings;
 import request.Request;
 import request.RequestType;
 import java.io.*;
@@ -8,11 +9,7 @@ import java.net.Socket;
 
 public class Client implements Runnable {
 
-    //Constants
-    private static final int PORT = 16500;
-
     //Class variables
-    private String hostIP = "localhost";
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private ClientListener listener;
@@ -20,7 +17,7 @@ public class Client implements Runnable {
     private Request lastFileRequest = null;
 
     //Constructor
-    public Client(ClientListener listener) {
+    Client(ClientListener listener) {
         this.listener = listener;
     }
 
@@ -30,7 +27,7 @@ public class Client implements Runnable {
         if(socket == null){
             try {
                 //Trying to connect to server
-                socket = new Socket(hostIP, PORT);
+                socket = new Socket(GlobalSettings.HOST_ADDRESS, GlobalSettings.HOST_PORT);
 
                 listener.updateUi("You are connected to the server");
 

@@ -57,12 +57,7 @@ public class ClientGui implements ClientListener {
     @Override
     public void updateUi(String string) {
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                ta_client_text.appendText(string + "\n");
-            }
-        });
+        Platform.runLater(() -> ta_client_text.appendText(string + "\n"));
     }
 
 
@@ -101,10 +96,14 @@ public class ClientGui implements ClientListener {
 
         System.out.println("File location: " + file.getPath());
 
-        Request request = new Request(lb_username.getText(), tf_message.getText(), RequestType.FILE_TRANSFER_REQUEST);
-        request.setFile(file);
+        if(file != null) {
+            Request request = new Request(lb_username.getText(), tf_message.getText(), RequestType.FILE_TRANSFER_REQUEST);
+            request.setFile(file);
 
-        client.requestToServer(request);
+            client.requestToServer(request);
+        } else {
+            updateUi("Ingen fil valgt");
+        }
 
 
     }

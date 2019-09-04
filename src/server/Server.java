@@ -1,7 +1,7 @@
 package server;
 
+import globalsettings.GlobalSettings;
 import request.Request;
-import request.RequestType;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -10,14 +10,9 @@ import java.util.Vector;
 
 public class Server implements Runnable{
 
-    //Constant port number
-    private static final int PORT = 16500;
-
     //Instance variables
     private ServerSocket server;
     private Socket socket;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
 
     private ServerListener listener;
 
@@ -30,7 +25,7 @@ public class Server implements Runnable{
     static boolean fileTransferRequest = false;
     static Request request = null;
 
-    //No arg constructor
+    //Constructor
     Server(ServerListener listener) {
         this.listener = listener;
 
@@ -46,7 +41,7 @@ public class Server implements Runnable{
         try {
 
             //Initialiserer serveren på en angivet port
-            server = new ServerSocket(PORT);
+            server = new ServerSocket(GlobalSettings.HOST_PORT);
 
             listener.updateUI("Server running");
             listener.updateServerStatus();
@@ -58,14 +53,11 @@ public class Server implements Runnable{
                 //Accepterer hvis en klient prøver at tilslutte til serveren
                 socket = server.accept();
 
-                listener.updateUI("Client request recieved");
-
                 if(fileTransferRequest){
                     fileTransferConn(socket, request, listener);
                 } else {
                     clientConn(socket, listener);
                 }
-
 
             }
 
@@ -75,7 +67,7 @@ public class Server implements Runnable{
         }
     }
 
-    static void clientConn(Socket socket, ServerListener listener){
+    private static void clientConn(Socket socket, ServerListener listener){
         //Creating a client thread to handle client
         ClientHandler client = new ClientHandler(socket, listener);
         Thread thread = new Thread(client);
@@ -85,7 +77,7 @@ public class Server implements Runnable{
 
         thread.start();
 
-        listener.updateUI("Client successfully handled");
+        listener.updateUI("A new client connected");
 
 
         //increments number of clients connected to server
@@ -93,11 +85,10 @@ public class Server implements Runnable{
         listener.updateClientCount(clientCounter);
     }
 
-    static void fileTransferConn(Socket socket, Request request, ServerListener listener){
+    private static void fileTransferConn(Socket socket, Request request, ServerListener listener){
         fileTransferRequest = false;
         new Thread(new FileTransferHandler(socket, request , listener)).start();
         request = null;
     }
-
 
 }

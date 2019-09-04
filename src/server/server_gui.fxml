@@ -6,31 +6,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="587.0" prefWidth="500.0" style="-fx-background-color: #3c3f41 #3c3f41;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerGui">
-   <children>
-      <Label layoutX="35.0" layoutY="508.0" text="Clients connected:" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="51.0" layoutY="535.0" text="Open rooms:" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_client_count" layoutX="170.0" layoutY="508.0" text="0" textFill="#3e859f">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_room_count" layoutX="170.0" layoutY="535.0" text="0" textFill="#3e859f">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label fx:id="lb_server_start_timestamp" layoutX="35.0" layoutY="480.0" text="Server is not running..." textFill="WHITE" />
-      <JFXButton fx:id="btn_start_server" layoutX="401.0" layoutY="476.0" onAction="#startServer" style="-fx-background-color: #3e859f;" text="Start Server" />
-      <TextArea fx:id="ta_server_text" editable="false" layoutX="25.0" layoutY="24.0" prefHeight="434.0" prefWidth="454.0" style="-fx-control-inner-background: #2b2b2b; -fx-text-fill: #aeb0b2; -fx-background-color: #2b2b2b; -fx-padding: 0 0 28 0; -fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-scrollbar-base-color: #2b2b2b;" />
-      <Label fx:id="label_startServerPromtText" layoutX="122.0" layoutY="34.0" prefHeight="17.0" prefWidth="257.0" text="Press the 'Start Server' button to start the server" textFill="#3e859f" />
-   </children>
+<AnchorPane prefHeight="587.0" prefWidth="500.0" style="-fx-background-color: #3c3f41 #3c3f41;"
+            xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="server.ServerGui">
+   <Label layoutX="35.0" layoutY="508.0" text="Clients connected:" textFill="WHITE">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label layoutX="51.0" layoutY="535.0" text="Open rooms:" textFill="WHITE">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lb_client_count" layoutX="170.0" layoutY="508.0" text="0" textFill="#3e859f">
+      <font>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lb_room_count" layoutX="170.0" layoutY="535.0" text="0" textFill="#3e859f">
+      <font>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lb_server_start_timestamp" layoutX="35.0" layoutY="480.0" text="Server is not running..."
+          textFill="WHITE"/>
+   <JFXButton fx:id="btn_start_server" layoutX="401.0" layoutY="506.0" onAction="#startServer"
+              style="-fx-background-color: #3e859f;" text="Start Server"/>
+   <TextArea fx:id="ta_server_text" editable="false" layoutX="25.0" layoutY="24.0" prefHeight="434.0" prefWidth="454.0"
+             style="-fx-control-inner-background: #2b2b2b; -fx-text-fill: #aeb0b2; -fx-background-color: #2b2b2b; -fx-padding: 0 0 28 0; -fx-faint-focus-color: transparent; -fx-focus-color: transparent; -fx-scrollbar-base-color: #2b2b2b;"/>
+   <Label fx:id="label_startServerPromtText" layoutX="122.0" layoutY="34.0" prefHeight="17.0" prefWidth="257.0"
+          text="Press the 'Start Server' button to start the server" textFill="#3e859f"/>
 </AnchorPane>

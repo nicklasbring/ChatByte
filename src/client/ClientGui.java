@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import request.Request;
 import request.RequestType;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class ClientGui implements ClientListener {
         } else if(tf_message.getText().isEmpty()){
             ta_client_text.appendText("There's nothing to send\n");
         } else {
-            client.requestToServer(lb_username.getText(), tf_message.getText(), RequestType.MESSAGE);
+            client.requestToServer(new Request(lb_username.getText(), tf_message.getText(), RequestType.MESSAGE));
             tf_message.clear();
         }
 
@@ -99,6 +100,13 @@ public class ClientGui implements ClientListener {
         file = fileChooser.showOpenDialog(stage);
 
         System.out.println("File location: " + file.getPath());
+
+        Request request = new Request(lb_username.getText(), tf_message.getText(), RequestType.FILE_TRANSFER_REQUEST);
+        request.setFile(file);
+
+        client.requestToServer(request);
+
+
     }
 
 

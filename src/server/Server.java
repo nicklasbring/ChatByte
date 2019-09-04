@@ -1,11 +1,11 @@
 package server;
 
-import javafx.application.Platform;
+import request.Request;
+import request.RequestType;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Vector;
 
 public class Server implements Runnable{
@@ -18,6 +18,7 @@ public class Server implements Runnable{
     private Socket socket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
+
     private ServerListener listener;
 
     //vector used because it's thread safe
@@ -26,6 +27,8 @@ public class Server implements Runnable{
 
     //counts number of clients
     static int clientCounter = 0;
+    static boolean fileTransferRequest = false;
+    static Request request = null;
 
     //No arg constructor
     Server(ServerListener listener) {
@@ -57,27 +60,12 @@ public class Server implements Runnable{
 
                 listener.updateUI("Client request recieved");
 
-                //Initialiserer datainput- og dataoutputstream for at kunne kommunikere mellem server og klient
-                output = new ObjectOutputStream(socket.getOutputStream());
-                input = new ObjectInputStream(socket.getInputStream());
+                if(fileTransferRequest){
+                    fileTransferConn(socket, request, listener);
+                } else {
+                    clientConn(socket, listener);
+                }
 
-
-
-                //Creating a client thread to handle client
-                ClientHandler client = new ClientHandler(socket, input, output, listener);
-                Thread thread = new Thread(client);
-
-                //Adding client to vector
-                clients.add(client);
-
-                thread.start();
-
-                listener.updateUI("Client successfully handled");
-
-
-                //increments number of clients connected to server
-                clientCounter++;
-                listener.updateClientCount(clientCounter);
 
             }
 
@@ -86,4 +74,30 @@ public class Server implements Runnable{
             e.printStackTrace();
         }
     }
+
+    static void clientConn(Socket socket, ServerListener listener){
+        //Creating a client thread to handle client
+        ClientHandler client = new ClientHandler(socket, listener);
+        Thread thread = new Thread(client);
+
+        //Adding client to vector
+        clients.add(client);
+
+        thread.start();
+
+        listener.updateUI("Client successfully handled");
+
+
+        //increments number of clients connected to server
+        clientCounter++;
+        listener.updateClientCount(clientCounter);
+    }
+
+    static void fileTransferConn(Socket socket, Request request, ServerListener listener){
+        fileTransferRequest = false;
+        new Thread(new FileTransferHandler(socket, request , listener)).start();
+        request = null;
+    }
+
+
 }

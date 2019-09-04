@@ -1,6 +1,7 @@
 package server;
 
 import request.Request;
+import request.RequestType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,16 +12,14 @@ import java.net.SocketException;
 public class ClientHandler implements Runnable {
 
     //Instance variables
-    private final ObjectInputStream ois;
-    private final ObjectOutputStream oos;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
     private final Socket socket;
     private ServerListener listener;
 
     //Constructor
-    ClientHandler(Socket socket, ObjectInputStream ois, ObjectOutputStream oos, ServerListener listener) {
+    ClientHandler(Socket socket, ServerListener listener) {
         this.socket = socket;
-        this.ois = ois;
-        this.oos = oos;
         this.listener = listener;
 
     }
@@ -29,9 +28,18 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        Request request;
+        //Initialiserer datainput- og dataoutputstream for at kunne kommunikere mellem server og klient
+        try {
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            System.out.println("Failed to create Clienthandler input/output");
+            e.printStackTrace();
+        }
 
-        while (true){
+        Request request = null;
+
+        while (!socket.isClosed()){
 
             try {
 
@@ -58,6 +66,15 @@ public class ClientHandler implements Runnable {
                     case LEAVE_ROOM:
                         break;
                     case FILE_TRANSFER_REQUEST:
+
+                        Server.fileTransferRequest = true;
+                        Server.request = request;
+
+                        Request response = new Request("kom", "nu", RequestType.APPROVED);
+                        oos.writeObject(response);
+                        oos.flush();
+
+
                         break;
                     case CLOSE:
                         throw new SocketException();

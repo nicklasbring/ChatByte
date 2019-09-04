@@ -3,7 +3,6 @@ package client;
 import request.Request;
 import request.RequestType;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.net.ConnectException;
 import java.net.Socket;
 
@@ -18,6 +17,7 @@ public class Client implements Runnable {
     private ObjectInputStream ois;
     private ClientListener listener;
     private Socket socket = null;
+    private Request lastFileRequest = null;
 
     //Constructor
     public Client(ClientListener listener) {
@@ -39,10 +39,26 @@ public class Client implements Runnable {
                 ois = new ObjectInputStream(socket.getInputStream());
 
                 //Endless loop that updates the textArea in the gui with request from the server
+
                 Request request;
                 while (true){
+
+
                     request = (Request) ois.readObject();
-                    listener.updateUi(request.getSender() + ": " + request.getMsg());
+
+                    if (request.getType() == RequestType.MESSAGE){
+
+                        listener.updateUi(request.getSender() + ": " + request.getMsg());
+
+                    } else if(request.getType() == RequestType.APPROVED){
+
+                        new Thread(new FileTransferClient(lastFileRequest, listener)).start();
+                        listener.updateUi("File transfer started");
+
+                    } else {
+                        listener.updateUi("something went wrong");
+                    }
+
                 }
             } catch (ConnectException e){
                 listener.updateUi("Failed to connect to server\n" +
@@ -60,11 +76,15 @@ public class Client implements Runnable {
     }
 
 
-    void requestToServer(String name, String message, RequestType type){
+    void requestToServer(Request request){
+
+        lastFileRequest = request;
+
         try {
-            //Writes a new Request object to the server
-            oos.writeObject(new Request(name, message, type));
+            oos.writeObject(request);
             oos.flush();
+            //Writes a new Request object to the server
+
         } catch (NullPointerException e){
             listener.updateUi("Failed to sent message, try connecting to server");
             e.printStackTrace();

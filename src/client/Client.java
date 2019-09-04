@@ -52,14 +52,12 @@ public class Client implements Runnable {
 
                     } else if(request.getType() == RequestType.APPROVED){
 
-                        new Thread(new FileTransferClient(lastFileRequest)).start();
+                        new Thread(new FileTransferClient(lastFileRequest, listener)).start();
                         listener.updateUi("File transfer started");
 
                     } else {
                         listener.updateUi("something went wrong");
                     }
-
-
 
                 }
             } catch (ConnectException e){

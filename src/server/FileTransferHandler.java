@@ -15,15 +15,18 @@ public class FileTransferHandler implements Runnable {
     private File file;
     private String filename;
     private byte[] fileBytes;
+    private ServerListener listener;
 
 
-    public FileTransferHandler(Socket socket, Request request) {
+    public FileTransferHandler(Socket socket, Request request, ServerListener listener) {
         this.socket = socket;
         this.file = request.getFile();
+        this.listener = listener;
+
 
 
         filename = file.getName();
-        System.out.println("Filesize: " + file.length());
+        listener.updateUI("Filesize: " + file.length() + " bytes / " + file.length() * 0.00000095367432 + " Mb");
         fileBytes = new byte[(int) file.length()];
 
     }
@@ -31,26 +34,25 @@ public class FileTransferHandler implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("FileHandler initialized run");
+        listener.updateUI("FileHandler initialized");
 
         int num;
 
 
         try {
-            System.out.println("creating input and output");
             bis = new BufferedInputStream(socket.getInputStream());
             bos = new BufferedOutputStream(new FileOutputStream(path + filename));
 
-            System.out.println("Writing the contents in the file from server");
+            listener.updateUI("Writing file to " + path + filename);
             while ( (num = bis.read(fileBytes)) > 0) {
                 bos.write(fileBytes,0,num);
 
             }
             bos.close();
             bis.close();
-            System.out.println("done");
+            listener.updateUI("File transfer completed");
         } catch (IOException e){
-            System.out.println("File writing error!");
+            listener.updateUI("File writing error!");
             e.printStackTrace();
         }
 

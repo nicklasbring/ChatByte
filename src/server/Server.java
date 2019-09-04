@@ -61,7 +61,7 @@ public class Server implements Runnable{
                 listener.updateUI("Client request recieved");
 
                 if(fileTransferRequest){
-                    fileTransferConn(socket, request);
+                    fileTransferConn(socket, request, listener);
                 } else {
                     clientConn(socket, listener);
                 }
@@ -93,9 +93,9 @@ public class Server implements Runnable{
         listener.updateClientCount(clientCounter);
     }
 
-    static void fileTransferConn(Socket socket, Request request){
+    static void fileTransferConn(Socket socket, Request request, ServerListener listener){
         fileTransferRequest = false;
-        new Thread(new FileTransferHandler(socket, request)).start();
+        new Thread(new FileTransferHandler(socket, request , listener)).start();
         request = null;
     }
 

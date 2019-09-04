@@ -8,26 +8,23 @@ import java.net.Socket;
 public class FileTransferClient implements Runnable {
 
     //Constants
-    private static final int PORT = 16500;
+    private final int PORT = 16500;
 
     //Class variables
-    private String hostIP = "localhost";
+    private final String hostIP = "localhost";
+    private ClientListener listener;
 
-    private Socket socket;
-    private BufferedInputStream bis;
-    private BufferedOutputStream bos;
-    private Request request;
 
     private byte[] fileBytes;
 
     private File file;
 
-    public FileTransferClient(Request request) {
+    public FileTransferClient(Request request, ClientListener listener) {
         this.file = request.getFile();
-        this.request = request;
+        this.listener = listener;
 
-        System.out.println("File path: " + file.getPath() + "\n" +
-                "Transfer size: " + file.length() );
+        listener.updateUi("File path: " + file.getPath() + "\n" +
+                "Transfer size: " + file.length() + " bytes / " + file.length() * 0.00000095367432 + " Mb" );
         fileBytes = new byte[(int)file.length()];
 
     }
@@ -38,16 +35,10 @@ public class FileTransferClient implements Runnable {
         int num;
 
         try {
-            socket = new Socket(hostIP, PORT);
-            System.out.println("File socket connected");
+            Socket socket = new Socket(hostIP, PORT);
 
-
-            bis = new BufferedInputStream(new FileInputStream(file.getPath()));
-            System.out.println("BufferedInputStream initialized");
-
-            bos = new BufferedOutputStream(socket.getOutputStream());
-            System.out.println("BufferedOutputStream initialized");
-
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file.getPath()));
+            BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
 
             while ( (num = bis.read(fileBytes)) > 0 ){
                 bos.write(fileBytes,0,num);
@@ -56,17 +47,13 @@ public class FileTransferClient implements Runnable {
             bos.close();
             bis.close();
 
-            System.out.println("File transfer complete");
+            listener.updateUi("File transfer complete");
 
         } catch (IOException e) {
+            listener.updateUi("Filetransfer had an IO error");
             e.printStackTrace();
         }
 
-
     }
-
-
-
-
 
 }

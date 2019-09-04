@@ -32,33 +32,41 @@ public class FileTransferHandler implements Runnable {
     @Override
     public void run() {
 
+        recieveFile();
+
+    }
+
+
+    private void recieveFile(){
+
         listener.updateUI("FileHandler initialized");
 
         int num;
 
 
         try {
+
             BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(GlobalSettings.SERVER_FILE_PATH + filename));
 
             listener.updateUI("Writing file to " + GlobalSettings.SERVER_FILE_PATH + filename);
+
             while ( (num = bis.read(fileBytes)) > 0) {
+
                 bos.write(fileBytes,0,num);
 
             }
+
             bos.close();
             bis.close();
+
             listener.updateUI("File transfer completed");
+
         } catch (IOException e){
             listener.updateUI("File writing error!");
             e.printStackTrace();
         }
-
     }
-
-
-
-
 
 
 }

@@ -29,6 +29,13 @@ public class FileTransferClient implements Runnable {
     @Override
     public void run() {
 
+        sendFile();
+
+    }
+
+
+    private void sendFile(){
+
         int num;
 
         try {
@@ -52,5 +59,7 @@ public class FileTransferClient implements Runnable {
         }
 
     }
+
+
 
 }

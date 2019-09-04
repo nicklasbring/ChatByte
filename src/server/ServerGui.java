@@ -1,5 +1,6 @@
 package server;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +13,11 @@ import java.util.Date;
 public class ServerGui implements ServerListener {
 
 
-    @FXML public TextArea ta_server_text;
-    @FXML public Label lb_client_count;
-    @FXML public Label lb_server_start_timestamp;
-    @FXML public Button btn_start_server;
-    @FXML public Label label_startServerPromtText;
+    @FXML TextArea ta_server_text;
+    @FXML Label lb_client_count;
+    @FXML Label lb_server_start_timestamp;
+    @FXML JFXButton btn_start_server;
+    @FXML Label label_startServerPromtText;
 
     public void initialize(){
         ta_server_text.wrapTextProperty().setValue(true);
@@ -37,40 +38,23 @@ public class ServerGui implements ServerListener {
 
     }
 
-
     @Override
     public void updateUI(String s) {
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                ta_server_text.appendText(s + "\n");
-            }
-        });
+        Platform.runLater(() -> ta_server_text.appendText(s + "\n"));
     }
 
     @Override
     public void updateClientCount(int clientCount) {
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                lb_client_count.setText(String.valueOf(clientCount));
-            }
-        });
+        Platform.runLater(() -> lb_client_count.setText(String.valueOf(clientCount)));
     }
 
     @Override
     public void updateServerStatus() {
         String status = new Date().toString();
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                lb_server_start_timestamp.setText("Serveren er startet: " + status);
-            }
-        });
+        Platform.runLater(() -> lb_server_start_timestamp.setText("Serveren er startet: " + status));
     }
-
 
 }

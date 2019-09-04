@@ -1,5 +1,6 @@
 package client;
 
+import globalsettings.GlobalSettings;
 import request.Request;
 
 import java.io.*;
@@ -7,11 +8,7 @@ import java.net.Socket;
 
 public class FileTransferClient implements Runnable {
 
-    //Constants
-    private final int PORT = 16500;
-
     //Class variables
-    private final String hostIP = "localhost";
     private ClientListener listener;
 
 
@@ -19,7 +16,7 @@ public class FileTransferClient implements Runnable {
 
     private File file;
 
-    public FileTransferClient(Request request, ClientListener listener) {
+    FileTransferClient(Request request, ClientListener listener) {
         this.file = request.getFile();
         this.listener = listener;
 
@@ -32,10 +29,17 @@ public class FileTransferClient implements Runnable {
     @Override
     public void run() {
 
+        sendFile();
+
+    }
+
+
+    private void sendFile(){
+
         int num;
 
         try {
-            Socket socket = new Socket(hostIP, PORT);
+            Socket socket = new Socket(GlobalSettings.HOST_ADDRESS, GlobalSettings.HOST_PORT);
 
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file.getPath()));
             BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
@@ -55,5 +59,7 @@ public class FileTransferClient implements Runnable {
         }
 
     }
+
+
 
 }

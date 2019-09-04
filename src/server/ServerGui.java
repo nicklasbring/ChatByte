@@ -16,6 +16,7 @@ public class ServerGui implements ServerListener {
     @FXML public Label lb_client_count;
     @FXML public Label lb_server_start_timestamp;
     @FXML public Button btn_start_server;
+    @FXML public Label label_startServerPromtText;
 
     public void initialize(){
         ta_server_text.wrapTextProperty().setValue(true);
@@ -32,6 +33,7 @@ public class ServerGui implements ServerListener {
         thread.start();
 
         btn_start_server.setDisable(true);
+        label_startServerPromtText.setVisible(false);
 
     }
 
@@ -65,7 +67,7 @@ public class ServerGui implements ServerListener {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                lb_server_start_timestamp.setText(status);
+                lb_server_start_timestamp.setText("Serveren er startet: " + status);
             }
         });
     }

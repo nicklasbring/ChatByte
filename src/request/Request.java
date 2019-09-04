@@ -1,5 +1,6 @@
 package request;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Request implements Serializable {
@@ -7,6 +8,8 @@ public class Request implements Serializable {
     private String sender;
     private String msg;
     private RequestType type;
+
+    private File file = null;
 
     public Request(String sender, String msg, RequestType type) {
         this.sender = sender;
@@ -36,4 +39,13 @@ public class Request implements Serializable {
     public void setType(RequestType type) {
         this.type = type;
     }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
 }

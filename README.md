@@ -24,7 +24,8 @@ and more.
 7. Have a shitload of fun
 
 **OBS:** If you want to use it with multiple clients on multiple PC/MAC's 
-you should change the HOST_ADDRESS to the ip address of the server pc. 
+you should change the HOST_ADDRESS in src/globalsettings/GlobalSettings.java 
+to the ip address of the server computer. 
 
 
 ### Visual Representation
